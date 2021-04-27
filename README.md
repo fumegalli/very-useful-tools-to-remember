@@ -1,2 +1,3 @@
 # very-useful-tools-to-remember
-Backend challenge created by BossaBox
+
+A aplicação é um simples repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags.
