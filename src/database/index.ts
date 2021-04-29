@@ -19,3 +19,5 @@ export const connect = async (): Promise<Mongoose> => {
     }
   );
 };
+
+export const close = (): Promise<void> => mongoose.connection.close();
