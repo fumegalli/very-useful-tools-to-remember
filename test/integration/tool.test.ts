@@ -1,5 +1,6 @@
 import request from 'supertest';
 import { app } from '../../src/app';
+import { CreateToolRequest } from '../../src/controllers/Tool';
 import { Tool } from '../../src/models/tool';
 
 const anyTool: Tool = {
@@ -49,6 +50,36 @@ describe('Tool tests', () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual([]);
+    });
+  });
+
+  describe('create', () => {
+    it('should be able to create a new tool', async () => {
+      const requestBody: CreateToolRequest = {
+        link: 'https://www.fastify.io/',
+        tags: ['web', 'framework', 'node', 'http2'],
+        title: 'Fastify',
+        description: 'Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.',
+      };
+
+      const response = await request(app).post('/tools').send(requestBody);
+
+      expect(response.status).toBe(201);
+      expect(response.body).toEqual(expect.objectContaining(requestBody));
+      expect(response.body.id).toEqual(expect.any(String));
+    });
+
+    it('should be able to throw ApiError when something goes wrong during request body validation', async () => {
+      const requestBody = {
+        link: 'missing_description',
+        tags: ['missing', 'description'],
+        title: 'missing_description',
+      };
+
+      const response = await request(app).post('/tools').send(requestBody);
+
+      expect(response.status).toBe(400);
+      expect(response.body.message.errors[0]).toEqual('description is a required field')
     });
   });
 });

@@ -1,11 +1,32 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { ToolService } from '../services/Tool';
 
-class ToolController {
-  public static async findAll(req: Request, res: Response) {
-    const tools = await ToolService.findAll(req.query.tag as string | undefined);
+export interface CreateToolRequest {
+  title: string;
+  link: string;
+  description: string;
+  tags: string[];
+};
 
-    return res.status(200).json(tools);
+class ToolController {
+  public static async findAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      const tools = await ToolService.findAll(req.query.tag as string | undefined);
+
+      return res.status(200).json(tools);
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  public static async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const tool = await ToolService.create(req.body);
+
+      return res.status(201).json(tool);
+    } catch (err) {
+      return next(err);
+    }
   }
 }
 
