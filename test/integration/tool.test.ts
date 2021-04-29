@@ -41,5 +41,14 @@ describe('Tool tests', () => {
       expect(response.body.length).toBe(1);
       expect(response.body[0]).toEqual(expect.objectContaining(toolWithNode));
     });
+
+    it('should be able to return an empty array when no tools are found for received tag', async () => {
+      const tagToFilter = 'nonexistent_tag';
+
+      const response = await request(app).get(`/tools?tag=${tagToFilter}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual([]);
+    });
   });
 });
