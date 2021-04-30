@@ -5,7 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
-    "test:integration": "jest --projects ./test --runInBand --silent"
+    "test:integration": "jest --projects ./test --runInBand"
   },
   "repository": {
     "type": "git",
