@@ -1,0 +1,220 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.3.0",
+    "title": "Very Useful Tools To Remember",
+    "description": "A Backend Challenge by BossaBox",
+    "termsOfService": "http://api_url/terms/",
+    "contact": {
+      "name": "Rafael Fumegalli",
+      "email": "rafaelxxc@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html" 
+    }
+  },
+  "servers": [{
+    "url": "http://localhost:3000/",
+    "description": "Local Server"
+  }],
+  "paths": {
+    "/tools": {
+      "post": {
+        "description": "Create a new Tool",
+        "operationId": "CreateTool",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateToolRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The tool has been created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateToolResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "message": "Invalid Parameters",
+                  "code": "400"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "Get tools",
+        "operationId": "getTools",
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/tag"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All Tools",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tools"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete tool",
+        "operationId": "deleteTool",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Tool deleted"
+          },
+          "404": {
+            "description": "Tool not  found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "message": "Tool not found",
+                  "code": "404"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "id": {
+        "type": "string",
+        "example": "608bf3bcd5c1047cb1b84032"
+      },
+      "title": {
+        "type": "string",
+        "example": "Github"
+      },
+      "link": {
+        "type": "string",
+        "example": "https://github.com"
+      },
+      "description": {
+        "type": "string",
+        "example": "GitHub is a web-based version-control and collaboration platform for software developers"
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": ["git"]
+      },
+      "message": {
+        "type": "string",
+        "example": "Invalid parameters"
+      },
+      "statusCode": {
+        "type": "integer",
+        "example": 400
+      },
+      "tag": {
+        "type": "string",
+        "example": "node"
+      },
+      "Tools": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CreateToolResponse"
+        }
+      },
+      "CreateToolRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "$ref": "#/components/schemas/title"
+          },
+          "link": {
+            "$ref": "#/components/schemas/link"
+          },
+          "description": {
+            "$ref": "#/components/schemas/description"
+          },
+          "tags": {
+            "$ref": "#/components/schemas/tags"
+          }
+        },
+        "required": ["title", "link", "description", "tags"]
+      },
+      "CreateToolResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/id"
+          },
+          "title": {
+            "$ref": "#/components/schemas/title"
+          },
+          "link": {
+            "$ref": "#/components/schemas/link"
+          },
+          "description": {
+            "$ref": "#/components/schemas/description"
+          },
+          "tags": {
+            "$ref": "#/components/schemas/tags"
+          }
+        },
+        "required": ["id", "title", "link", "description", "tags"]
+      },
+      "ApiError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "$ref": "#/components/schemas/message"
+          },
+          "code": {
+            "$ref": "#/components/schemas/statusCode"
+          }
+        }
+      }
+    }
+  }
+}
