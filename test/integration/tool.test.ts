@@ -18,14 +18,14 @@ describe('Tool tests', () => {
   });
 
   describe('findAll', () => {
-    it('should be able to return all tools found', async () => {
+    it('should return status 200 and all tools found', async () => {
       const response = await request(app).get('/tools');
 
       expect(response.status).toBe(200);
       expect(response.body[0]).toEqual(expect.objectContaining(anyTool));
     });
 
-    it('should be able to return all tools containing the tag to filter', async () => {
+    it('should return status 200 and an array containing the filtered tool by tag', async () => {
       const tagToFilter = 'node';
       const toolWithNode: Tool = {
         link: 'any_link',
@@ -43,7 +43,7 @@ describe('Tool tests', () => {
       expect(response.body[0]).toEqual(expect.objectContaining(toolWithNode));
     });
 
-    it('should be able to return an empty array when no tools are found for received tag', async () => {
+    it('should return status 200 and an empty array when no tools are found for received tag', async () => {
       const tagToFilter = 'nonexistent_tag';
 
       const response = await request(app).get(`/tools?tag=${tagToFilter}`);
@@ -54,7 +54,7 @@ describe('Tool tests', () => {
   });
 
   describe('create', () => {
-    it('should be able to create a new tool', async () => {
+    it('should return status 200 and a body containing the created tool with its id', async () => {
       const requestBody: CreateToolRequest = {
         link: 'https://www.fastify.io/',
         tags: ['web', 'framework', 'node', 'http2'],
@@ -69,7 +69,7 @@ describe('Tool tests', () => {
       expect(response.body.id).toEqual(expect.any(String));
     });
 
-    it('should be able to throw ApiError when something goes wrong during request body validation', async () => {
+    it('should return status 400 with a message when the description field is missing in request body', async () => {
       const requestBody = {
         link: 'missing_description',
         tags: ['missing', 'description'],
@@ -80,6 +80,32 @@ describe('Tool tests', () => {
 
       expect(response.status).toBe(400);
       expect(response.body.message.errors[0]).toEqual('description is a required field')
+    });
+  });
+
+  describe('delete', () => {
+    it('should return status 204 when delete by id successfully', async () => {
+      const toolToDelete: Tool = {
+        link: 'any_link',
+        tags: ['any_tag'],
+        title: 'any_title',
+        description: 'any_description',
+      };
+
+      const { id } = await new Tool(toolToDelete).save();
+
+      const response = await request(app).delete(`/tools/${id}`);
+
+      expect(response.status).toBe(204);
+    });
+
+    it('should return status 404 when no tool is found for received id', async () => {
+      const nonexistentId = 'nonexistent_id';
+
+      const response = await request(app).delete(`/tools/${nonexistentId}`);
+
+      expect(response.status).toBe(404);
+      expect(response.body).toEqual({ message: 'Tool not found' });
     });
   });
 });

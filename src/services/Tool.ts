@@ -28,7 +28,15 @@ class ToolService {
     }
 
     return ToolRepository.create(toolToCreate);
-  } 
+  }
+
+  public static async deleteById(id: string | undefined): Promise<void> {
+    const deletedTool = await ToolRepository.deleteById(id);
+
+    if (!deletedTool.deletedCount) {
+      throw new ApiError('Tool not found', 404);
+    }
+}
 }
 
 export { ToolService };
