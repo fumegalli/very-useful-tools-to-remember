@@ -28,6 +28,16 @@ class ToolController {
       return next(err);
     }
   }
+
+  public static async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      await ToolService.deleteById(req.params.id);
+
+      return res.sendStatus(204);
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 export { ToolController };
