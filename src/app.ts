@@ -2,10 +2,10 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import apiSchema from './api.schema.json';
 import * as database from './database';
-import { OpenApiValidator } from 'express-openapi-validator';
-import { OpenAPIV3 } from 'express-openapi-validator/dist/framework/types';
-import { handleErrorMiddleware } from './middlewares/handle-error';
-import { router } from './routes';
+import {OpenApiValidator} from 'express-openapi-validator';
+import {OpenAPIV3} from 'express-openapi-validator/dist/framework/types';
+import {handleErrorMiddleware} from './middlewares/handle-error';
+import {router} from './routes';
 
 database.connect();
 
@@ -24,4 +24,4 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSchema));
   }).install(app);
 })();
 
-export { app };
+export {app};

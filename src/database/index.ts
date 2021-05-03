@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from 'mongoose';
+import mongoose, {Mongoose} from 'mongoose';
 
 export const connect = async (): Promise<Mongoose> => {
   mongoose.connection.on('error', (err) => {
@@ -12,11 +12,12 @@ export const connect = async (): Promise<Mongoose> => {
     console.log('MongoDB connection establish');
   });
 
-  return await mongoose.connect('mongodb://localhost:27017/vuttr',  {
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
+  return await mongoose.connect('mongodb://localhost:27017/vuttr',
+      {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
   );
 };
 

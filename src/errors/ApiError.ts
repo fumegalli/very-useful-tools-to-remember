@@ -9,4 +9,4 @@ class ApiError {
   }
 }
 
-export { ApiError }
+export {ApiError};

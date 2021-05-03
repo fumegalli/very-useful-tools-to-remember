@@ -1,7 +1,12 @@
-import { Request, Response, NextFunction } from 'express';
-import { ApiError } from '../errors/ApiError';
+import {Request, Response, NextFunction} from 'express';
+import {ApiError} from '../errors/ApiError';
 
-export function handleErrorMiddleware(err: Error, _: Request, res: Response, _next: NextFunction) {
+export function handleErrorMiddleware(
+    err: Error,
+    _: Request,
+    res: Response,
+    _next: NextFunction,
+) {
   if (err instanceof ApiError) {
     return res.status(err.statusCode).json({
       message: err.message,
