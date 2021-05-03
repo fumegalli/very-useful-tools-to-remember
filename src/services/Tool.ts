@@ -1,8 +1,8 @@
 import * as yup from 'yup';
-import { CreateToolRequest } from '../controllers/Tool';
-import { ApiError } from '../errors/ApiError';
-import { Tool } from '../models/tool';
-import { ToolRepository } from '../repositories/Tool';
+import {CreateToolRequest} from '../controllers/Tool';
+import {ApiError} from '../errors/ApiError';
+import {Tool} from '../models/tool';
+import {ToolRepository} from '../repositories/Tool';
 
 class ToolService {
   public static async findAll(tag: string | undefined): Promise<Tool[]> {
@@ -22,7 +22,7 @@ class ToolService {
     });
 
     try {
-      await schema.validate(toolToCreate, { abortEarly: false });
+      await schema.validate(toolToCreate, {abortEarly: false});
     } catch (err) {
       throw new ApiError(err, 400);
     }
@@ -36,7 +36,7 @@ class ToolService {
     if (!deletedTool.deletedCount) {
       throw new ApiError('Tool not found', 404);
     }
-}
+  }
 }
 
-export { ToolService };
+export {ToolService};

@@ -1,7 +1,7 @@
 import request from 'supertest';
-import { app } from '../../src/app';
-import { CreateToolRequest } from '../../src/controllers/Tool';
-import { Tool } from '../../src/models/tool';
+import {app} from '../../src/app';
+import {CreateToolRequest} from '../../src/controllers/Tool';
+import {Tool} from '../../src/models/tool';
 
 const anyTool: Tool = {
   link: 'any_link',
@@ -79,7 +79,7 @@ describe('Tool tests', () => {
       const response = await request(app).post('/tools').send(requestBody);
 
       expect(response.status).toBe(400);
-      expect(response.body.message.errors[0]).toEqual('description is a required field')
+      expect(response.body.message.errors[0]).toEqual('description is a required field');
     });
   });
 
@@ -92,7 +92,7 @@ describe('Tool tests', () => {
         description: 'any_description',
       };
 
-      const { id } = await new Tool(toolToDelete).save();
+      const {id} = await new Tool(toolToDelete).save();
 
       const response = await request(app).delete(`/tools/${id}`);
 
@@ -105,7 +105,7 @@ describe('Tool tests', () => {
       const response = await request(app).delete(`/tools/${nonexistentId}`);
 
       expect(response.status).toBe(404);
-      expect(response.body).toEqual({ message: 'Tool not found' });
+      expect(response.body).toEqual({message: 'Tool not found'});
     });
   });
 });
