@@ -54,7 +54,7 @@ describe('Tool tests', () => {
   });
 
   describe('create', () => {
-    it('should return status 200 and a body containing the created tool with its id', async () => {
+    it('should return status 201 and a body containing the created tool with its id', async () => {
       const requestBody: CreateToolRequest = {
         link: 'https://www.fastify.io/',
         tags: ['web', 'framework', 'node', 'http2'],
@@ -105,7 +105,7 @@ describe('Tool tests', () => {
       const response = await request(app).delete(`/tools/${nonexistentId}`);
 
       expect(response.status).toBe(404);
-      expect(response.body).toEqual({message: 'Tool not found'});
+      expect(response.body.message).toEqual('Tool not found');
     });
   });
 });

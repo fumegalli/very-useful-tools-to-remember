@@ -18,6 +18,7 @@ class ToolRepository {
   public static async create(tool: Tool): Promise<Tool> {
     return Tool.create(tool);
   }
+
   public static async deleteById(
       id: string | undefined,
   ): Promise<MongoDeleteOne> {

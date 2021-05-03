@@ -1,5 +1,4 @@
 import express from 'express';
-import swaggerUi from 'swagger-ui-express';
 import apiSchema from './api.schema.json';
 import * as database from './database';
 import {OpenApiValidator} from 'express-openapi-validator';
@@ -14,7 +13,6 @@ const app = express();
 app.use(express.json());
 app.use(router);
 app.use(handleErrorMiddleware);
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSchema));
 
 (async () => {
   await new OpenApiValidator({
