@@ -4,9 +4,11 @@
   "description": "Backend challenge created by BossaBox",
   "main": "src/server.ts",
   "scripts": {
+    "start": "node build/server.js",
+    "build": "tsc",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "lint": "eslint . --ext .ts",
-    "test:integration": "jest --projects ./test --runInBand"
+    "test": "jest --projects ./test --runInBand"
   },
   "repository": {
     "type": "git",
