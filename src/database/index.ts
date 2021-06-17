@@ -11,8 +11,8 @@ export const connect = async (): Promise<Mongoose> => {
   mongoose.connection.once('open', () => {
     console.log('MongoDB connection establish');
   });
-
-  return await mongoose.connect('mongodb+srv://dbUser:dbUser@cluster0.3xbag.mongodb.net/vuttr?retryWrites=true&w=majority',
+  console.log(process.env.MONGO_DB_URI);
+  return await mongoose.connect(process.env.MONGO_DB_URI || '',
       {
         useCreateIndex: true,
         useNewUrlParser: true,
