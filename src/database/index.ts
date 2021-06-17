@@ -12,7 +12,7 @@ export const connect = async (): Promise<Mongoose> => {
     console.log('MongoDB connection establish');
   });
 
-  return await mongoose.connect('mongodb://localhost:27017/vuttr',
+  return await mongoose.connect(process.env.MONGO_DB_URI || '',
       {
         useCreateIndex: true,
         useNewUrlParser: true,
