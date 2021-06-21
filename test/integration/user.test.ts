@@ -22,7 +22,7 @@ describe('User tests', () => {
           .mockResolvedValue(encryptedPassword);
 
       const response = await request(app).post('/users').send(newUser);
-
+      console.log('Testing');
       expect(response.status).toBe(201);
       expect(response.body.id).toEqual(expect.any(String));
       expect(response.body.password).not.toEqual(newUser.password);
