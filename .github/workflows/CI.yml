@@ -24,9 +24,9 @@ jobs:
         run: npm run lint
 
       - name: Set env variables
-        run:  |
-          touch .env
-          echo MONGO_DB_URI= ${{ secrets.MONGO_DB_URI }} >> .env
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_MONGO_DB_URI: ${{ secrets.MONGO_DB_URI }}
   
       - name: Test
         run: npm run test
