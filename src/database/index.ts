@@ -12,8 +12,6 @@ export const connect = async (): Promise<Mongoose> => {
     console.log('MongoDB connection establish');
   });
 
-  console.log('MONGO_DB_URI: ', process.env.MONGO_DB_URI);
-
   return await mongoose.connect(process.env.MONGO_DB_URI || '',
       {
         useCreateIndex: true,
