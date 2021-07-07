@@ -5,6 +5,7 @@ import {OpenApiValidator} from 'express-openapi-validator';
 import {OpenAPIV3} from 'express-openapi-validator/dist/framework/types';
 import {handleErrorMiddleware} from './middlewares/handle-error';
 import {router} from './routes';
+import 'dotenv/config';
 
 database.connect();
 
